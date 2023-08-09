@@ -89,7 +89,7 @@ namespace SymmetricalEncryptDecrypt
             Console.WriteLine("Key: " + cryptoStrings[0] + "\n");
             Console.WriteLine("IV: " + cryptoStrings[1] + "\n");
             Console.WriteLine("Cipher text in base64: " + cryptoStrings[2] + "\n");
-            Console.WriteLine("Key: " + cryptoStrings[3] + "\n");
+            Console.WriteLine("Deciphered text: " + cryptoStrings[3] + "\n");
 
             Console.WriteLine("Press escape to go back to start menu");
 

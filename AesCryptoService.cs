@@ -14,17 +14,22 @@ namespace SymmetricalEncryptDecrypt
 
         public string[] GetAesStrings(string input)
         {
-            string[] aesStrings = new string[3];
+            string[] aesStrings = new string[4];
             
             Aes aes = Aes.Create();
+
+            // 
             aes.Padding = PaddingMode.PKCS7;
 
-            byte[] tempCipher = AesEncryptString(aes, input, aes.Key, aes.IV);
+            byte[] key = aes.Key;
+            byte[] iv = aes.IV;
+
+            byte[] tempCipher = AesEncryptString(aes, input, key, iv);
 
             aesStrings[0] = GetByteArrayAsBase64(aes.Key);
             aesStrings[1] = GetByteArrayAsBase64(aes.IV);
             aesStrings[2] = GetByteArrayAsBase64(tempCipher);
-            aesStrings[3] = AesDecryptToString(aes, tempCipher, aes.Key, aes.IV);
+            aesStrings[3] = AesDecryptToString(aes, tempCipher, key, iv);
 
             return aesStrings;
         }
@@ -67,14 +72,7 @@ namespace SymmetricalEncryptDecrypt
                 }
             }
 
-            try
-            {
-                return streamResult;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(convertErrorMsg + e.Message);
-            }
+            return streamResult;
         }
 
         public string AesDecryptToString(Aes aes, byte[] cipher, byte[] key, byte[] iv)
