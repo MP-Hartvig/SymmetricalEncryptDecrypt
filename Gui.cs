@@ -11,37 +11,34 @@ namespace SymmetricalEncryptDecrypt
         string des = "DES";
         string tripleDes = "TipleDES";
         string aes = "AES";
-        string service = "Service";
         string navigationMessage = "Write a text to encrypt, press enter twice to go to next step or escape to go back to start menu";
 
         CryptoManager cryptoManager = new CryptoManager();
 
         public void StartMenu()
         {
+            MenuHeader("Crypto");
+
             bool startMenu = true;
+
+            Console.WriteLine("1. " + des);
+            Console.WriteLine("2. " + tripleDes);
+            Console.WriteLine("3. " + aes);
+            Console.WriteLine("4. Exit \n");
+            Console.Write("Press a number.");
 
             while (startMenu)
             {
-                Console.WriteLine("==================================================");
-                Console.WriteLine("                  Crypto service");
-                Console.WriteLine("==================================================\n\n");
-
-                Console.WriteLine("1. " + des);
-                Console.WriteLine("2. " + tripleDes);
-                Console.WriteLine("3. " + aes);
-                Console.WriteLine("4. Exit \n");
-                Console.Write("Press a number.");
-
                 switch (Console.ReadKey(true).KeyChar)
                 {
                     case '1':
-                        CryptoMenu(des);
+                        MenuLoop(des);
                         break;
                     case '2':
-                        CryptoMenu(tripleDes);
+                        MenuLoop(tripleDes);
                         break;
                     case '3':
-                        CryptoMenu(aes);
+                        MenuLoop(aes);
                         break;
                     case '4':
                         ExitApplication();
@@ -52,13 +49,9 @@ namespace SymmetricalEncryptDecrypt
             }
         }
 
-        private void CryptoMenu(string type)
+        private void MenuLoop(string type)
         {
-            Console.Clear();
-            Console.WriteLine("==================================================");
-            Console.WriteLine("                 " + type + service);
-            Console.WriteLine("==================================================\n\n");
-            Console.WriteLine(navigationMessage);
+            MenuHeader(type);
 
             bool menuBool = true;
 
@@ -86,12 +79,12 @@ namespace SymmetricalEncryptDecrypt
             Console.Clear();
             Console.WriteLine("Results from the " + type + " crypto service: \n");
             Console.WriteLine("Input: " + input + "\n");
-            Console.WriteLine("Key: " + cryptoStrings[0] + "\n");
-            Console.WriteLine("IV: " + cryptoStrings[1] + "\n");
+            Console.WriteLine("Key in base64: " + cryptoStrings[0] + "\n");
+            Console.WriteLine("IV in base64: " + cryptoStrings[1] + "\n");
             Console.WriteLine("Cipher text in base64: " + cryptoStrings[2] + "\n");
             Console.WriteLine("Deciphered text: " + cryptoStrings[3] + "\n");
 
-            Console.WriteLine("Press escape to go back to start menu");
+            Console.WriteLine("Press escape to go back to the start menu");
 
             bool resultMenu = true;
 
@@ -101,6 +94,18 @@ namespace SymmetricalEncryptDecrypt
                 {
                     StartMenu();
                 }
+            }
+        }
+
+        private void MenuHeader(string type)
+        {
+            Console.Clear();
+            Console.WriteLine("==================================================");
+            Console.WriteLine("              " + type + " Service");
+            Console.WriteLine("================================================== \n\n");
+            if (type != "Crypto")
+            {
+                Console.WriteLine(navigationMessage);
             }
         }
 
